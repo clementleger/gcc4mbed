@@ -29,15 +29,16 @@
 #include "FATDirHandle.h"
 
 DWORD get_fattime(void) {
-    time_t rawtime;
-    time(&rawtime);
-    struct tm *ptm = localtime(&rawtime);
-    return (DWORD)(ptm->tm_year - 80) << 25
-         | (DWORD)(ptm->tm_mon + 1  ) << 21
-         | (DWORD)(ptm->tm_mday     ) << 16
-         | (DWORD)(ptm->tm_hour     ) << 11
-         | (DWORD)(ptm->tm_min      ) << 5
-         | (DWORD)(ptm->tm_sec/2    );
+    //~ time_t rawtime;
+    //~ time(&rawtime);
+    //~ struct tm *ptm = localtime(&rawtime);
+    //~ return (DWORD)(ptm->tm_year - 80) << 25
+         //~ | (DWORD)(ptm->tm_mon + 1  ) << 21
+         //~ | (DWORD)(ptm->tm_mday     ) << 16
+         //~ | (DWORD)(ptm->tm_hour     ) << 11
+         //~ | (DWORD)(ptm->tm_min      ) << 5
+         //~ | (DWORD)(ptm->tm_sec/2    );
+    return 0;
 }
 
 FATFileSystem *FATFileSystem::_ffs[_VOLUMES] = {0};
@@ -101,44 +102,49 @@ FileHandle *FATFileSystem::open(const char* name, int flags) {
 }
 
 int FATFileSystem::remove(const char *filename) {
-    FRESULT res = f_unlink(filename);
-    if (res) {
-        debug_if(FFS_DBG, "f_unlink() failed: %d\n", res);
-        return -1;
-    }
-    return 0;
+    //~ FRESULT res = f_unlink(filename);
+    //~ if (res) {
+        //~ debug_if(FFS_DBG, "f_unlink() failed: %d\n", res);
+        //~ return -1;
+    //~ }
+    //~ return 0;
+    return -1;
 }
 
 int FATFileSystem::rename(const char *oldname, const char *newname) {
-    FRESULT res = f_rename(oldname, newname);
-    if (res) {
-        debug_if(FFS_DBG, "f_rename() failed: %d\n", res);
-        return -1;
-    }
-    return 0;
+    //~ FRESULT res = f_rename(oldname, newname);
+    //~ if (res) {
+        //~ debug_if(FFS_DBG, "f_rename() failed: %d\n", res);
+        //~ return -1;
+    //~ }
+    //~ return 0;
+    return -1;
 }
 
 int FATFileSystem::format() {
-    FRESULT res = f_mkfs(_fsid, 0, 512); // Logical drive number, Partitioning rule, Allocation unit size (bytes per cluster)
-    if (res) {
-        debug_if(FFS_DBG, "f_mkfs() failed: %d\n", res);
-        return -1;
-    }
-    return 0;
+    //~ FRESULT res = f_mkfs(_fsid, 0, 512); // Logical drive number, Partitioning rule, Allocation unit size (bytes per cluster)
+    //~ if (res) {
+        //~ debug_if(FFS_DBG, "f_mkfs() failed: %d\n", res);
+        //~ return -1;
+    //~ }
+    //~ return 0;
+    return -1;
 }
 
 DirHandle *FATFileSystem::opendir(const char *name) {
-    FATFS_DIR dir;
-    FRESULT res = f_opendir(&dir, name);
-    if (res != 0) {
-        return NULL;
-    }
-    return new FATDirHandle(dir);
+    //~ FATFS_DIR dir;
+    //~ FRESULT res = f_opendir(&dir, name);
+    //~ if (res != 0) {
+        //~ return NULL;
+    //~ }
+    //~ return new FATDirHandle(dir);
+    return NULL;
 }
 
 int FATFileSystem::mkdir(const char *name, mode_t mode) {
-    FRESULT res = f_mkdir(name);
-    return res == 0 ? 0 : -1;
+    //~ FRESULT res = f_mkdir(name);
+    //~ return res == 0 ? 0 : -1;
+    return -1;
 }
 
 int FATFileSystem::mount() {
